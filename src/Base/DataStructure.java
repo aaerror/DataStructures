@@ -81,11 +81,15 @@ public abstract class DataStructure {
 		return result;
 	}
 
-	protected void listData(Node node) {
-		System.out.println(node);
-
-		if (node.hasNextNode()) {
-			listData(node.getNextNode());
+	protected void info() {
+		StringBuilder info = new StringBuilder();
+		Node node = getRootNode();
+		info.append(node);
+		
+		while (node.hasNextNode()) {
+			info.append("\n").append(node.getNextNode());
+			node = node.getNextNode();
 		}
+		System.out.println(info);
 	}
 }

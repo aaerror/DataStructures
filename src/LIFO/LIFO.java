@@ -12,10 +12,10 @@ public class LIFO extends DataStructure {
 		return new LIFO();
 	}
 
-	public int count() { return nodeQuantities; }
+	public int size() { return nodeQuantities; }
 
 	public boolean isEmpty() {
-		return (count() == 0);
+		return (size() == 0);
 	}
 
 	public Object peek() {
@@ -50,7 +50,7 @@ public class LIFO extends DataStructure {
 		}
 	}
 
-	public void showData() {
-		listData(getRootNode());
+	public void show() {
+		info();
 	}
 }
