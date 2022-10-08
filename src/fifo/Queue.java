@@ -1,19 +1,19 @@
-package FIFO;
+package fifo;
 
-import Base.DataStructure;
-import Base.Node;
+import base.DataStructure;
+import base.Node;
 
-public class FIFO extends DataStructure {
+public class Queue extends DataStructure {
 	private Node frontNode;
 
 
-	private FIFO() {
+	private Queue() {
 		super();
 		frontNode = null;
 	}
 
-	public static FIFO createFIFO() {
-		return new FIFO();
+	public static Queue create() {
+		return new Queue();
 	}
 
 	public int size() {
@@ -40,7 +40,7 @@ public class FIFO extends DataStructure {
 	}
 
 	public void enqueue(Object data) {
-		Node newNode = Node.createNode(data);
+		Node newNode = Node.create(data);
 		addNodeQuantity();
 
 		if (!hasRootNode()) {

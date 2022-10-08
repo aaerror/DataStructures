@@ -1,15 +1,15 @@
-package LIFO;
+package lifo;
 
-import Base.DataStructure;
-import Base.Node;
+import base.DataStructure;
+import base.Node;
 
-public class LIFO extends DataStructure {
-	private LIFO() {
+public class Stack extends DataStructure {
+	private Stack() {
 		super();
 	}
 
-	public static LIFO createLIFO() {
-		return new LIFO();
+	public static Stack create() {
+		return new Stack();
 	}
 
 	public int size() { return nodeQuantities; }
@@ -38,7 +38,7 @@ public class LIFO extends DataStructure {
 	}
 
 	public void push(Object newData) {
-		Node newNode = Node.createNode(newData);
+		Node newNode = Node.create(newData);
 		addNodeQuantity();
 		if (!hasRootNode()) {
 			setRootNode(newNode);

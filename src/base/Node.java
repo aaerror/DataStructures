@@ -1,7 +1,7 @@
-package Base;
+package base;
 
 public class Node {
-	private Object data;
+	private final Object data;
 	private int position;
 	private Node nextNode;
 
@@ -11,7 +11,7 @@ public class Node {
 		this.position = 1;
 	}
 
-	public static Node createNode(Object data) {
+	public static Node create(Object data) {
 		return new Node(data);
 	}
 

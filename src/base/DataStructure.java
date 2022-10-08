@@ -1,4 +1,4 @@
-package Base;
+package base;
 
 public abstract class DataStructure {
 	private Node root;
@@ -42,7 +42,7 @@ public abstract class DataStructure {
 	}
 
 	protected void moveNodeOneStepForward(Node nodeToMove) {
-		if (nodeToMove.getNodePosition() < nodeQuantities) {
+		if (nodeToMove.getNodePosition() <= nodeQuantities) {
 			nodeToMove.moveToNextPosition();
 			if (nodeToMove.hasNextNode()) {
 				moveNodeOneStepForward(nodeToMove.getNextNode());
