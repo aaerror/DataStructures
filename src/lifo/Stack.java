@@ -12,8 +12,6 @@ public class Stack extends DataStructure {
 		return new Stack();
 	}
 
-	public int size() { return nodeQuantities; }
-
 	public boolean isEmpty() {
 		return (size() == 0);
 	}
@@ -24,8 +22,7 @@ public class Stack extends DataStructure {
 
 	public void pop() {
 		if (isEmpty()) {
-			System.out.println("There isn't data on the stack.");
-			return;
+			throw new IndexOutOfBoundsException("Underflow error: Stack it's empty.");
 		}
 
 		Node newRoot = getRootNode().getNextNode();
@@ -40,6 +37,7 @@ public class Stack extends DataStructure {
 	public void push(Object newData) {
 		Node newNode = Node.create(newData);
 		addNodeQuantity();
+
 		if (!hasRootNode()) {
 			setRootNode(newNode);
 		} else {
@@ -53,4 +51,6 @@ public class Stack extends DataStructure {
 	public void show() {
 		info();
 	}
+
+	public int size() { return nodeQuantities; }
 }

@@ -8,6 +8,7 @@ public class SinglyLinked extends DataStructure {
 		super();
 	}
 
+
 	public static SinglyLinked create() {
 		return new SinglyLinked();
 	}
@@ -55,6 +56,27 @@ public class SinglyLinked extends DataStructure {
 		}
 	}
 
+	public Object get(int atPosition) {
+		checkRange(atPosition);
+
+		if (isEmpty()) {
+			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
+		}
+
+		Node searched = getRootNode();
+		while (atPosition != searched.getNodePosition()) {
+			if (searched.hasNextNode()) {
+				searched = searched.getNextNode();
+			}
+		}
+
+		return searched.getNodeData();
+	}
+
+	public boolean isEmpty() {
+		return (size() == 0);
+	}
+
 	public Object remove() {
 		if (isEmpty()) {
 			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
@@ -100,32 +122,11 @@ public class SinglyLinked extends DataStructure {
 		return toRemove.getNodeData();
 	}
 
-	public Object get(int atPosition) {
-		checkRange(atPosition);
-
-		if (isEmpty()) {
-			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
-		}
-
-		Node searched = getRootNode();
-		while (atPosition != searched.getNodePosition()) {
-			if (searched.hasNextNode()) {
-				searched = searched.getNextNode();
-			}
-		}
-
-		return searched.getNodeData();
-	}
-
-	public boolean isEmpty() {
-		return (size() == 0);
+	public void show() {
+		info();
 	}
 
 	public int size() {
 		return nodeQuantities;
-	}
-
-	public void show() {
-		info();
 	}
 }

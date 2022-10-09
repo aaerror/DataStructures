@@ -16,14 +16,9 @@ public class Queue extends DataStructure {
 		return new Queue();
 	}
 
-	public int size() {
-		return nodeQuantities;
-	}
-
 	public Object dequeue() {
 		if (isEmpty()) {
-			System.out.println("There isn't data on the queue.");
-			return null;
+			throw new IndexOutOfBoundsException("Underflow error: Queue it's empty.");
 		}
 
 		Node searchNewFront = getRootNode();
@@ -64,5 +59,9 @@ public class Queue extends DataStructure {
 
 	public void show() {
 		info();
+	}
+
+	public int size() {
+		return nodeQuantities;
 	}
 }
