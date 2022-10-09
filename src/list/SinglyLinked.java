@@ -12,6 +12,12 @@ public class SinglyLinked extends DataStructure {
 		return new SinglyLinked();
 	}
 
+	private void checkRange(int position) {
+		if (position < 1 || position > size()) {
+			throw new IndexOutOfBoundsException("Position " + position + "out of bounds.");
+		}
+	}
+
 	public void add(Object data) {
 		Node newNode = Node.create(data);
 
@@ -25,12 +31,7 @@ public class SinglyLinked extends DataStructure {
 	}
 
 	public void add(Object data, int atPosition) {
-		if (atPosition < 1 || atPosition > size() + 1) {
-			String info = String.format("Invalid position to insert data. List size: %s", size()) +
-					String.format("\n\tPosition: %s - Data: %s", atPosition, data);
-			System.out.println(info);
-			return;
-		}
+		checkRange(atPosition);
 
 		if (atPosition == 1) {
 			add(data);
@@ -38,13 +39,7 @@ public class SinglyLinked extends DataStructure {
 			Node newNode = Node.create(data);
 			Node searched = getRootNode();
 
-			/**
-			 * Looking for node in position - 1
-			 */
 			while (searched.getNodePosition() != (atPosition - 1)) {
-				/**
-				 * Move the newNode position at position - 1
-				 */
 				newNode.moveToNextPosition();
 				searched = searched.getNextNode();
 			}
@@ -61,8 +56,8 @@ public class SinglyLinked extends DataStructure {
 	}
 
 	public Object remove() {
-		if (size() == 0) {
-			System.out.println("Underflow error. The list is empty.");
+		if (isEmpty()) {
+			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
 		}
 
 		Node toRemove = getRootNode();
@@ -78,11 +73,10 @@ public class SinglyLinked extends DataStructure {
 	}
 
 	public Object remove(int atPosition) {
-		if (atPosition < 1 || atPosition > size()) {
-			String info = String.format("Invalid position to delete data. List size: %s", size()) +
-					String.format("\n\tPosition: %s", atPosition);
-			System.out.println(info);
-			return null;
+		checkRange(atPosition);
+
+		if (isEmpty()) {
+			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
 		}
 
 		if (atPosition == 1) {
@@ -107,13 +101,10 @@ public class SinglyLinked extends DataStructure {
 	}
 
 	public Object get(int atPosition) {
-		if (isEmpty()) {
-			System.out.println("Underflow error. The list is empty.");
-		}
+		checkRange(atPosition);
 
-		if (atPosition < 1 || atPosition > size()) {
-			System.out.println("Invalid position to get data. List size: %s\", size()");
-			return null;
+		if (isEmpty()) {
+			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
 		}
 
 		Node searched = getRootNode();
