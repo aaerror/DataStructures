@@ -4,6 +4,7 @@ public class Node {
 	private final Object data;
 	private int position;
 	private Node nextNode;
+	private Node previousNode;
 
 
 	private Node(Object data) {
@@ -27,6 +28,14 @@ public class Node {
 		return data;
 	}
 
+	public void setPreviousNode(Node previous) {
+		previousNode = previous;
+	}
+
+	public Node getPreviousNode() {
+		return previousNode;
+	}
+
 	public int getNodePosition() { return position; }
 
 	public void moveToNextPosition() {
@@ -42,6 +51,8 @@ public class Node {
 	public boolean hasNextNode() {
 		return (nextNode != null);
 	}
+
+	public boolean hasPreviousNode() { return (previousNode != null); }
 
 	public String toString() {
 		return String.format("Node at %s: %s", position, data);

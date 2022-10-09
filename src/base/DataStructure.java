@@ -6,8 +6,8 @@ public abstract class DataStructure {
 
 
 	protected DataStructure() {
-		root = null;
 		nodeQuantities = 0;
+		root = null;
 	}
 
 	public void setRootNode(Node newRoot) {
@@ -50,46 +50,24 @@ public abstract class DataStructure {
 		}
 	}
 
-	private Node getNodeAtPosition(Node fromNode, int atPosition) throws Exception {
-		if (atPosition >= nodeQuantities) {
-			throw new IllegalArgumentException("Position is greater than node quantity.");
-		}
-
-		if (hasRootNode()) {
-			throw new Exception("There isn't nodes on the list.");
-		}
-
-		int nodePosition = fromNode.getNodePosition();
-		if (nodePosition == atPosition) {
-			return fromNode;
-		} else {
-			Node next = fromNode.getNextNode();
-
-			return getNodeAtPosition(next, atPosition);
-		}
+	public boolean isEmpty() {
+		return (size() == 0);
 	}
 
-	protected Object retrieveData(int atPosition) {
-		Object result;
-		try {
-			Node nodeAtPosition = getNodeAtPosition(root, atPosition);
-			result = nodeAtPosition.getNodeData();
-		} catch (Exception ex) {
-			result = ex.getMessage();
-		}
-
-		return result;
-	}
-
-	protected void info() {
-		StringBuilder info = new StringBuilder();
+	public void show() {
+		StringBuilder info = new StringBuilder(8);
 		Node node = getRootNode();
 		info.append(node);
-		
+
 		while (node.hasNextNode()) {
 			info.append("\n").append(node.getNextNode());
 			node = node.getNextNode();
 		}
+
 		System.out.println(info);
+	}
+
+	public int size() {
+		return nodeQuantities;
 	}
 }

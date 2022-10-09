@@ -49,19 +49,10 @@ public class Queue extends DataStructure {
 		}
 	}
 
-	public boolean isEmpty() {
-		return (size() == 0);
-	}
-
 	public Object peek() {
+		if (isEmpty()) {
+			throw new IndexOutOfBoundsException("Underflow error: Queue it's empty.");
+		}
 		return frontNode.getNodeData();
-	}
-
-	public void show() {
-		info();
-	}
-
-	public int size() {
-		return nodeQuantities;
 	}
 }

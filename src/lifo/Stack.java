@@ -12,11 +12,11 @@ public class Stack extends DataStructure {
 		return new Stack();
 	}
 
-	public boolean isEmpty() {
-		return (size() == 0);
-	}
-
 	public Object peek() {
+		if (isEmpty()) {
+			throw new IndexOutOfBoundsException("Underflow error: Stack it's empty.");
+		}
+
 		return getRootNode().getNodeData();
 	}
 
@@ -47,10 +47,4 @@ public class Stack extends DataStructure {
 			setRootNode(newNode);
 		}
 	}
-
-	public void show() {
-		info();
-	}
-
-	public int size() { return nodeQuantities; }
 }
