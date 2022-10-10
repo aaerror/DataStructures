@@ -10,8 +10,8 @@ public abstract class DataStructure {
 		first = null;
 	}
 
-	public void setFirstNode(Node newRoot) {
-		first = newRoot;
+	public void setFirstNode(Node newFirst) {
+		first = newFirst;
 	}
 
 	public Node getFirstNode() {
