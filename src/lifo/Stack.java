@@ -12,13 +12,12 @@ public class Stack extends DataStructure {
 		return new Stack();
 	}
 
-	public Object peek()
-	{
+	public Object peek() {
 		if (isEmpty()) {
 			throw new IndexOutOfBoundsException("Underflow error: Stack it's empty.");
 		}
 
-		return getRootNode().getData();
+		return getFirstNode().getData();
 	}
 
 	public void pop() {
@@ -26,26 +25,27 @@ public class Stack extends DataStructure {
 			throw new IndexOutOfBoundsException("Underflow error: Stack it's empty.");
 		}
 
-		Node newRoot = getRootNode().getNextNode();
-		getRootNode().setNextNode(null);
+		Node newFirst = getFirstNode().getNextNode();
+		getFirstNode().setNextNode(null);
 
-		moveNodeOneStepBackward(newRoot);
+		moveNodeOneStepBackward(newFirst);
 		substractNodeQuantity();
 
-		setRootNode(newRoot);
+		setFirstNode(newFirst);
 	}
 
 	public void push(Object newData) {
 		Node newNode = Node.create(newData);
-		addNodeQuantity();
 
-		if (!hasRootNode()) {
-			setRootNode(newNode);
+		if (isEmpty()) {
+			setFirstNode(newNode);
 		} else {
-			Node top = getRootNode();
-			newNode.setNextNode(top);
-			moveNodeOneStepForward(top);
-			setRootNode(newNode);
+			Node oldFirst = getFirstNode();
+			newNode.setNextNode(oldFirst);
+			moveNodeOneStepForward(oldFirst);
+			setFirstNode(newNode);
 		}
+
+		addNodeQuantity();
 	}
 }

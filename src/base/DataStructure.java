@@ -1,27 +1,25 @@
 package base;
 
 public abstract class DataStructure {
-	private Node root;
+	private Node first;
 	private int nodeQuantities;
 
 
 	protected DataStructure() {
 		nodeQuantities = 0;
-		root = null;
+		first = null;
 	}
 
-	public void setRootNode(Node newRoot) {
-		if (newRoot.getPosition() == 0) {
-			root = newRoot;
-		}
+	public void setFirstNode(Node newRoot) {
+		first = newRoot;
 	}
 
-	public Node getRootNode() {
-		return root;
+	public Node getFirstNode() {
+		return first;
 	}
 
 	protected void checkRange(int position) {
-		if (position < 0 || position > size()) {
+		if (position < 0 || position >= size()) {
 			throw new IndexOutOfBoundsException("Position " + position + " out of bounds.");
 		}
 	}
@@ -32,10 +30,6 @@ public abstract class DataStructure {
 
 	protected void substractNodeQuantity() {
 		nodeQuantities -= 1;
-	}
-
-	protected boolean hasRootNode() {
-		return (root != null);
 	}
 
 	protected void moveNodeOneStepBackward(Node nodeToMove) {
@@ -62,7 +56,7 @@ public abstract class DataStructure {
 
 	public void show() {
 		StringBuilder info = new StringBuilder(8);
-		Node node = getRootNode();
+		Node node = getFirstNode();
 		info.append(node);
 
 		while (node.hasNextNode()) {

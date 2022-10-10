@@ -17,23 +17,25 @@ public class SinglyLinked extends DataStructure {
 		Node newNode = Node.create(data);
 
 		if (!isEmpty()) {
-			newNode.setNextNode(getRootNode());
-			moveNodeOneStepForward(getRootNode());
+			newNode.setNextNode(getFirstNode());
+			moveNodeOneStepForward(getFirstNode());
 		}
 
 		addNodeQuantity();
-		setRootNode(newNode);
+		setFirstNode(newNode);
 	}
 
 	public void add(Object data, int atPosition) {
-		checkRange(atPosition);
+		if (atPosition < 0 || atPosition > size()) {
+			throw new IndexOutOfBoundsException("Position " + atPosition + " out of bounds.");
+		}
 
 		if (atPosition == 0) {
 			add(data);
 		} else {
 			Node newNode = Node.create(data);
 
-			Node searched = getRootNode();
+			Node searched = getFirstNode();
 			while (searched.getPosition() != (atPosition - 1)) {
 				searched = searched.getNextNode();
 				newNode.moveToNextPosition();
@@ -42,9 +44,10 @@ public class SinglyLinked extends DataStructure {
 			if (searched.hasNextNode()) {
 				newNode.setNextNode(searched.getNextNode());
 				moveNodeOneStepForward(newNode);
-			} else {
-				newNode.moveToNextPosition();
 			}
+//			else {
+//				newNode.moveToNextPosition();
+//			}
 
 			searched.setNextNode(newNode);
 			addNodeQuantity();
@@ -58,7 +61,7 @@ public class SinglyLinked extends DataStructure {
 			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
 		}
 
-		Node searched = getRootNode();
+		Node searched = getFirstNode();
 		while (searched.getPosition() != atPosition) {
 			if (searched.hasNextNode()) {
 				searched = searched.getNextNode();
@@ -73,13 +76,16 @@ public class SinglyLinked extends DataStructure {
 			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
 		}
 
-		Node toRemove = getRootNode();
+		Node toRemove = getFirstNode();
 		if (toRemove.hasNextNode()) {
-			moveNodeOneStepBackward(getRootNode().getNextNode());
-			setRootNode(getRootNode().getNextNode());
+			moveNodeOneStepBackward(getFirstNode().getNextNode());
+			setFirstNode(getFirstNode().getNextNode());
+
+			toRemove.setNextNode(null);
+		} else {
+			setFirstNode(null);
 		}
 
-		toRemove.setNextNode(null);
 		substractNodeQuantity();
 
 		return toRemove.getData();
@@ -98,7 +104,7 @@ public class SinglyLinked extends DataStructure {
 
 		int previousPosition = (atPosition != size()) ? atPosition - 1 : atPosition - 2;
 
-		Node previous = getRootNode();
+		Node previous = getFirstNode();
 		while (previous.getPosition() != previousPosition) {
 			previous = previous.getNextNode();
 		}

@@ -4,12 +4,12 @@ import base.DataStructure;
 import base.Node;
 
 public class Queue extends DataStructure {
-	private Node frontNode;
+	private Node last;
 
 
 	private Queue() {
 		super();
-		frontNode = null;
+		last = null;
 	}
 
 	public static Queue create() {
@@ -21,14 +21,15 @@ public class Queue extends DataStructure {
 			throw new IndexOutOfBoundsException("Underflow error: Queue it's empty.");
 		}
 
-		Node searchNewFront = getRootNode();
-		while (!searchNewFront.getNextNode().equals(frontNode)) {
-			searchNewFront = searchNewFront.getNextNode();
+		Node newLast = getFirstNode();
+		// Looking for the previous node who it's going to be the next to be dequeue.
+		while (!newLast.getNextNode().equals(last)) {
+			newLast = newLast.getNextNode();
 		}
 
-		Object dataDequeue = frontNode.getData();
-		searchNewFront.setNextNode(null);
-		frontNode = searchNewFront;
+		Object dataDequeue = last.getData();
+		newLast.setNextNode(null);
+		last = newLast;
 		substractNodeQuantity();
 
 		return dataDequeue;
@@ -37,14 +38,13 @@ public class Queue extends DataStructure {
 	public void enqueue(Object data) {
 		Node newNode = Node.create(data);
 
-		if (!hasRootNode()) {
-			setRootNode(newNode);
-			frontNode = getRootNode();
+		if (isEmpty()) {
+			setFirstNode(newNode);
+			last = getFirstNode();
 		} else {
-			Node rootNode = getRootNode();
-			newNode.setNextNode(rootNode);
-			moveNodeOneStepForward(rootNode);
-			setRootNode(newNode);
+			newNode.setNextNode(getFirstNode());
+			moveNodeOneStepForward(getFirstNode());
+			setFirstNode(newNode);
 		}
 
 		addNodeQuantity();
@@ -54,6 +54,7 @@ public class Queue extends DataStructure {
 		if (isEmpty()) {
 			throw new IndexOutOfBoundsException("Underflow error: Queue it's empty.");
 		}
-		return frontNode.getData();
+
+		return last.getData();
 	}
 }
