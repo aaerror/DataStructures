@@ -1,9 +1,13 @@
 import fifo.Queue;
 import lifo.Stack;
+import list.DoublyLinked;
 import list.SinglyLinked;
 
 public class Main {
 	public static void main(String[] args) {
+		/**
+		 * DATA STRUCTURE: STACK
+		 */
 		Stack stack = Stack.create();
 		System.out.println("\n" + "-".repeat(50));
 		System.out.println("Creating data structure: LIFO");
@@ -34,6 +38,9 @@ public class Main {
 		System.out.println("Peek: " + stack.peek());
 
 
+		/**
+		 * DATA STRUCTURE: QUEUE
+		 */
 		Queue queue = Queue.create();
 		System.out.println("\n\n" + "-".repeat(50));
 		System.out.println("Creating data structure: FIFO");
@@ -64,41 +71,92 @@ public class Main {
 		System.out.println("Peek: " + queue.peek());
 
 
-		SinglyLinked list = SinglyLinked.create();
+		/**
+		 * DATA STRUCTURE: SINGLY LINKED LIST
+		 */
+		SinglyLinked singlyLinked = SinglyLinked.create();
 		System.out.println("\n\n" + "-".repeat(50));
 		System.out.println("Creating data structure: Singly Linked List");
-		System.out.println("Is it empty?: " + list.isEmpty());
+		System.out.println("Is it empty?: " + singlyLinked.isEmpty());
 		System.out.println("-".repeat(50));
 
 		System.out.println("\n" + "=".repeat(50));
-		System.out.println("Inserting data into list...");
+		System.out.println("Inserting data into singly linked list...");
 		System.out.println("=".repeat(50));
-		list.add("a", 1);
-		list.add("x", 2);
-		list.add("o", 3);
-		list.add("k", 4);
-		list.add("n", 5);
-		list.add("r", 9);
-		list.add("e");
-
-		System.out.println("\nIs it empty?: " + list.isEmpty());
-		System.out.println("Quantity: " + list.size());
-		list.show();
-
-		System.out.println("\n" + "=".repeat(50));
-		System.out.println("Deleting data from list...");
-		System.out.println("=".repeat(50));
-		Object dataRemoved = list.remove(3);
-		System.out.println("Data deleted: " + dataRemoved);
-		dataRemoved = list.remove();
-		System.out.println("Data deleted: " + dataRemoved);
-		System.out.println("Quantity: " + list.size());
-		list.show();
+		singlyLinked.add("a");
+		singlyLinked.add("x");
+		singlyLinked.add("o");
+		singlyLinked.add("s", 2);
+		singlyLinked.add("k");
+		singlyLinked.add("n");
+		singlyLinked.add("y", 0);
+		singlyLinked.add("r", singlyLinked.size());
+		System.out.println("Is it empty?: " + singlyLinked.isEmpty());
+		System.out.println("Quantity: " + singlyLinked.size());
+		singlyLinked.show();
 
 		System.out.println("\n" + "=".repeat(50));
-		System.out.println("Getting data from list...");
+		System.out.println("Deleting data from singly linked list...");
 		System.out.println("=".repeat(50));
-		Object dataSearched = list.get(3);
+		Object dataRemoved = singlyLinked.remove(5);
+		System.out.println("Data deleted: " + dataRemoved);
+		dataRemoved = singlyLinked.remove(0);
+		System.out.println("Data deleted: " + dataRemoved);
+		dataRemoved = singlyLinked.remove(singlyLinked.size());
+		System.out.println("Data deleted: " + dataRemoved);
+		System.out.println("Quantity: " + singlyLinked.size());
+		singlyLinked.show();
+
+		System.out.println("\n" + "=".repeat(50));
+		System.out.println("Getting data from singly linked list...");
+		System.out.println("=".repeat(50));
+		Object dataSearched = singlyLinked.get(singlyLinked.size());
 		System.out.println("Data searched: " + dataSearched);
+
+/*
+		//
+		 * DATA STRUCTURE: DOUBLE LINKED LIST
+		 //
+		DoublyLinked doublyLinked = DoublyLinked.create();
+		System.out.println("\n\n" + "-".repeat(50));
+		System.out.println("Creating data structure: Doubly Linked List");
+		System.out.println("Is it empty?: " + doublyLinked.isEmpty());
+		System.out.println("-".repeat(50));
+
+		System.out.println("\n" + "=".repeat(50));
+		System.out.println("Inserting data into doubly linked list...");
+		System.out.println("=".repeat(50));
+		doublyLinked.addLast("e");
+		doublyLinked.addFirst("H");
+		doublyLinked.addLast("l");
+		doublyLinked.add("a", 2);
+		doublyLinked.addLast("l");
+		doublyLinked.add("o", 6);
+		doublyLinked.add("i", doublyLinked.size());
+		doublyLinked.add("!", doublyLinked.size()+1);
+		doublyLinked.show();
+		System.out.println("HEAD:\n\t" + doublyLinked.get(1));
+		System.out.println("TAIL:\n\t" + doublyLinked.get(doublyLinked.size()));
+		System.out.println("Is it empty?: " + doublyLinked.isEmpty());
+		System.out.println("Quantity: " + doublyLinked.size());
+
+		System.out.println("\n" + "=".repeat(50));
+		System.out.println("Deleting data from doubly linked list...");
+		System.out.println("=".repeat(50));
+		//dataRemoved = doublyLinked.remove(3);
+		System.out.println("Data deleted: " + dataRemoved);
+		//dataRemoved = doublyLinked.remove();
+		System.out.println("Data deleted: " + dataRemoved);
+
+		System.out.println("\n" + "=".repeat(50));
+		System.out.println("Getting data from doubly linked list...");
+		System.out.println("=".repeat(50));
+		dataSearched = doublyLinked.get(doublyLinked.size());
+		System.out.println("Data searched: " + dataSearched);
+		dataSearched = doublyLinked.get(1);
+		System.out.println("Data searched: " + dataSearched);
+		dataSearched = doublyLinked.get(doublyLinked.size()+1);
+		System.out.println("Data searched: " + dataSearched);
+*/
 	}
 }

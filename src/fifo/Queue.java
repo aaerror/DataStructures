@@ -26,7 +26,7 @@ public class Queue extends DataStructure {
 			searchNewFront = searchNewFront.getNextNode();
 		}
 
-		Object dataDequeue = frontNode.getNodeData();
+		Object dataDequeue = frontNode.getData();
 		searchNewFront.setNextNode(null);
 		frontNode = searchNewFront;
 		substractNodeQuantity();
@@ -36,7 +36,6 @@ public class Queue extends DataStructure {
 
 	public void enqueue(Object data) {
 		Node newNode = Node.create(data);
-		addNodeQuantity();
 
 		if (!hasRootNode()) {
 			setRootNode(newNode);
@@ -47,12 +46,14 @@ public class Queue extends DataStructure {
 			moveNodeOneStepForward(rootNode);
 			setRootNode(newNode);
 		}
+
+		addNodeQuantity();
 	}
 
 	public Object peek() {
 		if (isEmpty()) {
 			throw new IndexOutOfBoundsException("Underflow error: Queue it's empty.");
 		}
-		return frontNode.getNodeData();
+		return frontNode.getData();
 	}
 }

@@ -2,7 +2,7 @@ package base;
 
 public abstract class DataStructure {
 	private Node root;
-	protected int nodeQuantities;
+	private int nodeQuantities;
 
 
 	protected DataStructure() {
@@ -11,13 +11,19 @@ public abstract class DataStructure {
 	}
 
 	public void setRootNode(Node newRoot) {
-		if (newRoot.getNodePosition() == 1) {
+		if (newRoot.getPosition() == 0) {
 			root = newRoot;
 		}
 	}
 
 	public Node getRootNode() {
 		return root;
+	}
+
+	protected void checkRange(int position) {
+		if (position < 0 || position > size()) {
+			throw new IndexOutOfBoundsException("Position " + position + " out of bounds.");
+		}
 	}
 
 	protected void addNodeQuantity() {
@@ -33,20 +39,20 @@ public abstract class DataStructure {
 	}
 
 	protected void moveNodeOneStepBackward(Node nodeToMove) {
-		if (nodeToMove.getNodePosition() <= nodeQuantities) {
-			nodeToMove.moveToPreviousPosition();
-			if (nodeToMove.hasNextNode()) {
-				moveNodeOneStepBackward(nodeToMove.getNextNode());
-			}
+		checkRange(nodeToMove.getPosition());
+
+		nodeToMove.moveToPreviousPosition();
+		if (nodeToMove.hasNextNode()) {
+			moveNodeOneStepBackward(nodeToMove.getNextNode());
 		}
 	}
 
 	protected void moveNodeOneStepForward(Node nodeToMove) {
-		if (nodeToMove.getNodePosition() <= nodeQuantities) {
-			nodeToMove.moveToNextPosition();
-			if (nodeToMove.hasNextNode()) {
-				moveNodeOneStepForward(nodeToMove.getNextNode());
-			}
+		checkRange(nodeToMove.getPosition());
+
+		nodeToMove.moveToNextPosition();
+		if (nodeToMove.hasNextNode()) {
+			moveNodeOneStepForward(nodeToMove.getNextNode());
 		}
 	}
 

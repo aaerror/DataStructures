@@ -12,12 +12,13 @@ public class Stack extends DataStructure {
 		return new Stack();
 	}
 
-	public Object peek() {
+	public Object peek()
+	{
 		if (isEmpty()) {
 			throw new IndexOutOfBoundsException("Underflow error: Stack it's empty.");
 		}
 
-		return getRootNode().getNodeData();
+		return getRootNode().getData();
 	}
 
 	public void pop() {

@@ -9,7 +9,7 @@ public class Node {
 
 	private Node(Object data) {
 		this.data = data;
-		this.position = 1;
+		this.position = 0;
 	}
 
 	public static Node create(Object data) {
@@ -24,7 +24,7 @@ public class Node {
 		nextNode = next;
 	}
 
-	public Object getNodeData() {
+	public Object getData() {
 		return data;
 	}
 
@@ -36,14 +36,14 @@ public class Node {
 		return previousNode;
 	}
 
-	public int getNodePosition() { return position; }
+	public int getPosition() { return position; }
 
 	public void moveToNextPosition() {
 		position += 1;
 	}
 
 	public void moveToPreviousPosition() {
-		if (position >= 2) {
+		if (position >= 1) {
 			position -= 1;
 		}
 	}
