@@ -112,7 +112,7 @@ public class DoublyLinked extends DataStructure {
 			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
 		} else if (atPosition == 0) {
 			return removeFirst();
-		} else if (atPosition == (size() -1)) {
+		} else if (atPosition == (size() - 1)) {
 			return removeLast();
 		}
 
@@ -179,5 +179,4 @@ public class DoublyLinked extends DataStructure {
 
 		return toRemove.getData();
 	}
-
 }

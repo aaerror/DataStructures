@@ -10,11 +10,11 @@ public abstract class DataStructure {
 		first = null;
 	}
 
-	public void setFirstNode(Node newFirst) {
+	protected void setFirstNode(Node newFirst) {
 		first = newFirst;
 	}
 
-	public Node getFirstNode() {
+	protected Node getFirstNode() {
 		return first;
 	}
 

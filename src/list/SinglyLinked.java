@@ -45,9 +45,9 @@ public class SinglyLinked extends DataStructure {
 				newNode.setNextNode(searched.getNextNode());
 				moveNodeOneStepForward(newNode);
 			}
-//			else {
-//				newNode.moveToNextPosition();
-//			}
+			else {
+				newNode.moveToNextPosition();
+			}
 
 			searched.setNextNode(newNode);
 			addNodeQuantity();
