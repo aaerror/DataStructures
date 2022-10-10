@@ -4,12 +4,12 @@ import base.DataStructure;
 import base.Node;
 
 public class DoublyLinked extends DataStructure {
-	private Node tail;
+	private Node last;
 
 
 	private DoublyLinked() {
 		super();
-		tail = null;
+		last = null;
 	}
 
 	public static DoublyLinked create() {
@@ -17,17 +17,19 @@ public class DoublyLinked extends DataStructure {
 	}
 
 	public void add(Object data, int atPosition) {
-		checkRange(atPosition);
+		if (atPosition < 0 || atPosition > size()) {
+			throw new IndexOutOfBoundsException("Position " + atPosition + " out of bounds.");
+		}
 
-		if (atPosition == 1) {
+		if (atPosition == 0) {
 			addFirst(data);
-		} else if (atPosition == (size() + 1)) {
+		} else if (atPosition == size()) {
 			addLast(data);
 		} else {
 			Node newNode = Node.create(data);
 
 			// TODO: Make new inserts more efficient by atPosition/2.
-			Node searched = getRootNode();
+			Node searched = getFirstNode();
 			while (searched.getPosition() != atPosition) {
 				searched = searched.getNextNode();
 				newNode.moveToNextPosition();
@@ -49,15 +51,15 @@ public class DoublyLinked extends DataStructure {
 		Node newNode = Node.create(data);
 
 		if (isEmpty()) {
-			tail = newNode;
+			last = newNode;
 		} else {
-			newNode.setNextNode(getRootNode());
-			getRootNode().setPreviousNode(newNode);
-			moveNodeOneStepForward(getRootNode());
+			newNode.setNextNode(getFirstNode());
+			getFirstNode().setPreviousNode(newNode);
+			moveNodeOneStepForward(getFirstNode());
 		}
 
 		addNodeQuantity();
-		setRootNode(newNode);
+		setFirstNode(newNode);
 	}
 
 	public void addLast(Object data) {
@@ -67,15 +69,16 @@ public class DoublyLinked extends DataStructure {
 			addFirst(data);
 			return;
 		} else {
-			for (int i=1; i<=(size()); i+=1) {
+			for (int i = 0; i<= last.getPosition(); i+=1) {
 				newNode.moveToNextPosition();
 			}
-			tail.setNextNode(newNode);
-			newNode.setPreviousNode(tail);
+
+			last.setNextNode(newNode);
+			newNode.setPreviousNode(last);
 		}
 
 		addNodeQuantity();
-		tail = newNode;
+		last = newNode;
 	}
 
 	public Object get(int atPosition) {
@@ -85,14 +88,14 @@ public class DoublyLinked extends DataStructure {
 			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
 		}
 
-		if (getRootNode().getPosition() == atPosition) {
-			return getRootNode();
-		} else if (tail.getPosition() == atPosition) {
-			return tail;
+		if (getFirstNode().getPosition() == atPosition) {
+			return getFirstNode().getData();
+		} else if (last.getPosition() == atPosition) {
+			return last.getData();
 		} else {
-			Node searched = getRootNode();
+			Node searched = getFirstNode();
 
-			while(searched.getPosition() != atPosition) {
+			while (searched.getPosition() != atPosition) {
 				if (searched.hasNextNode()) {
 					searched = searched.getNextNode();
 				}
@@ -101,4 +104,80 @@ public class DoublyLinked extends DataStructure {
 			return searched.getData();
 		}
 	}
+
+	public Object remove(int atPosition) {
+		checkRange(atPosition);
+
+		if (isEmpty()) {
+			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
+		} else if (atPosition == 0) {
+			return removeFirst();
+		} else if (atPosition == (size() -1)) {
+			return removeLast();
+		}
+
+		Node toDelete = getFirstNode();
+		while (toDelete.getPosition() != atPosition) {
+			toDelete = toDelete.getNextNode();
+		}
+
+		if (toDelete.hasNextNode()) {
+			Node previous = toDelete.getPreviousNode();
+
+			previous.setNextNode(toDelete.getNextNode());
+			previous.getNextNode().setPreviousNode(previous);
+			moveNodeOneStepBackward(previous.getNextNode());
+		}
+
+		substractNodeQuantity();
+
+		return toDelete.getData();
+	}
+
+	public Object removeFirst() {
+		if (isEmpty()) {
+			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
+		}
+
+		Node toRemove = getFirstNode();
+		if (toRemove.hasNextNode()) {
+			Node newFirst = toRemove.getNextNode();
+
+			moveNodeOneStepBackward(newFirst);
+			setFirstNode(newFirst);
+
+			toRemove.setNextNode(null);
+			newFirst.setPreviousNode(null);
+		} else {
+			setFirstNode(null);
+			last = null;
+		}
+
+		substractNodeQuantity();
+
+		return toRemove.getData();
+	}
+
+	public Object removeLast() {
+		if (isEmpty()) {
+			throw new IndexOutOfBoundsException("Underflow error. The list it's empty.");
+		}
+
+		Node toRemove = last;
+		if (last.hasPreviousNode()) {
+			Node newLast = last.getPreviousNode();
+
+			newLast.setNextNode(null);
+			last.setPreviousNode(null);
+			last = newLast;
+		} else {
+			setFirstNode(null);
+			last = null;
+		}
+
+		substractNodeQuantity();
+
+		return toRemove.getData();
+	}
+
 }
